@@ -54,15 +54,6 @@ let package = Package(
             ],
             publicHeadersPath: "include",
             cSettings: [
-                .unsafeFlags([
-                    // Disable -fmodules flag. Clang finds (struct entry) in a different file (`search.h`).
-                    "-fno-modules",
-                    // Disable warning: "implicit conversion loses integer precision"
-                    "-Wno-single-bit-bitfield-constant-conversion",
-                    // Disable warning: "a function definition without a prototype is deprecated"
-                    "-Wno-deprecated-non-prototype",
-                ]),
-
                 .headerSearchPath("deps/http-parser"),
                 .headerSearchPath("deps/pcre"),
                 .headerSearchPath("deps/xdiff"),
