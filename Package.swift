@@ -12,11 +12,17 @@ let package = Package(
             targets: ["libgit2"]
         ),
     ],
+    dependencies: [
+        .package(url: "https://github.com/tingv/libssh2-spm.git", from: "1.11.0")
+    ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "libgit2",
+            dependencies: [
+                .product(name: "libssh2", package: "libssh2-spm")
+            ],
             path: ".",
             exclude: [
                 "deps/http-parser/CMakeLists.txt",
@@ -86,8 +92,8 @@ let package = Package(
                 // Git SSH transport configuration
                 .define("GIT_SSH", to: "1"),
                 .define("GIT_SSH_EXEC", to: "1"),
-                // .define("GIT_SSH_LIBSSH2", to: "0"),
-                // .define("GIT_SSH_LIBSSH2_MEMORY_CREDENTIALS", to: "0"),
+                .define("GIT_SSH_LIBSSH2", to: "1"),
+                .define("GIT_SSH_LIBSSH2_MEMORY_CREDENTIALS", to: "1"),
 
                 // .define("GIT_NTLM", to: "0"),
                 // .define("GIT_GSSAPI", to: "0"),
